@@ -1,0 +1,148 @@
+﻿<h3>Kvetinarstvi</h3>
+
+<PageTitle>E-Květinářství</PageTitle>
+
+<h1 style="color:forestgreen">E-Květinářství Internetová zahrádka</h1>
+<div>
+    <h4>Výběr</h4>
+    <p>
+        Růže - Rudá → 59 Kč<br />
+        Růže - Žlutá → 75 Kč<br />
+        Růže - Růžová → 65 Kč<br />
+        Růže - Modrá → 89 Kč<br />
+        Tulipán - Červená → 35 Kč<br />
+        Tulipán - Žlutá → 35 Kč<br />
+        Tulipán - Fialová → 42 Kč<br />
+        Gerbera - Červená → 49 Kč<br />
+        Gerbera - Žlutá → 45 Kč<br />
+        Gerbera - Fialová → 65 Kč<br />
+    </p>
+    <hr />
+    <p>
+        List palmy → 45 Kč<br />
+        Gypsophila → 39 Kč<br />
+        Santinka → 35 Kč<br />
+        Pedik – různé barvy → 23 Kč<br />
+        Další zeleň → 35 Kč<br />
+        Stužka úzká → 25 Kč<br />
+        Stužka široká → 45 Kč<br />
+    </p>
+
+    <div>
+        <h5>Květina:</h5>
+
+        
+
+        <label>
+            Květina:
+            <input class="m-1" type="text" @bind="Kvetina.Nazev" />
+        </label><br />
+        <label>
+            Počet:
+            <input class="m-1" type="number" @bind-value="Kvetina.Pocet" />
+        </label><br />
+        <label>
+            Barva:
+            <input class="m-1" type="text" @bind-value="Kvetina.Barva" />
+        </label><br />
+        @if (Editace)
+        {
+            <button @onclick="StopEdit">Ukončit úpravy</button>
+        }
+        else
+        {
+            <button @onclick="Pridat">Přidat</button>
+
+            <br />
+            <p><strong>Oblíbené varianty:</strong></p>
+            <label class="m-2">
+                Valentýn: 7x červených růží, 10x červený pedik, 1x list palmy
+                <button class="btn-dark" @onclick="()=>Predpripraveno(1)">Zvolit valentýn</button>
+            </label>
+            <label class="m-2">
+                Růže od srdce: 11x červených růží, 2x gypsophila, 3x další zeleň, stužka široká
+                <button class="btn-dark" @onclick="()=>Predpripraveno(2)">Zvolit Růže od srdce</button>
+            </label>
+            <label class="m-2">
+                Velké vyznání: 40x červená růže, 10x žlutá růže
+                <button class="btn-dark" @onclick="()=>Predpripraveno(3)">Zvolit Velké vyznání</button>
+            </label>
+        }
+    </div><br />
+    <div>
+        <h5>Dekorace:</h5>
+        <label>
+            Dekorace:
+            <input class="m-1" type="text" @bind="Dekorace.Nazev" />
+        </label><br />
+        <label>
+            Počet:
+            <input class="m-1" type="number" @bind-value="Dekorace.Pocet" />
+        </label><br />
+        @if (Editace)
+        {
+            <button @onclick="StopEdit">Ukončit úpravy</button>
+        }
+        else
+        {
+            @* <button @onclick="PridatDekoraci">Přidat</button> *@
+        }
+    </div>
+</div>
+<hr />
+<div>
+    <h4>Košík</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td>Položka</td>
+                <td>Počet</td>
+                <td>Cena za kus</td>
+                <td>Cena celkem</td>
+                <td>Upravit</td>
+                <td>Odstranit</td>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Kosik.Count(); i++)
+            {
+                var index = i;
+                <tr>
+                    <td>@Kosik[i].Nazev</td>
+                    <td>@Kosik[i].Pocet</td>
+                    <td>@Kosik[i].Cena Kč</td>
+                    <td>@Kosik[i].CelkovaCena Kč</td>
+                    <td>
+                        <button class="btn-info" @onclick="() => Edit(index)">&plusmn;</button>
+                    </td>
+                    <td>
+                        <button class="btn-danger" @onclick="() => Del(index)">×</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<hr />
+<div>
+    <h4>Doprava</h4>
+    <p>
+        Expresní kurýr – jen v Plzni → 1200 Kč<br />
+        Doručení dnes – jen v Plzni → 700 Kč<br />
+        ČR do 48 h → 250 Kč<br />
+        ČR do 24 h – jen v Plzni → 950 Kč<br />
+    </p>
+    <label>
+        <input class="m-1" type="text" @bind="Doprava.Typ" />
+    </label><br />
+    <button @onclick="ZvolitDopravu">Zvolit dopravu</button>
+    <p>Zvolená doprava: @ZvolenaDoprava.Typ - @ZvolenaDoprava.Cena Kč</p>
+</div>
+<hr />
+<hr />
+<div>
+    <h3>Cena celkem</h3>
+    <p>@CenaComplet Kč</p>
+</div>
+
+ 
